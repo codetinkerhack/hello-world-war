@@ -1,7 +1,8 @@
-Hello World! (WAR-style)
+Hello World! (WAR-style) Deployed in Elastic Beanstalk 
 ===============
 
-This is the simplest possible Java webapp for testing servlet container deployments.  It should work on any container and requires no other dependencies or configuration.
+This is the simplest possible Java webapp for testing servlet container deployments.  
+It should work on any container and requires no other dependencies or configuration.
 
 ##To run application from CLI 
 
@@ -14,7 +15,7 @@ and then
     java -jar target/dependency/jetty-runner.jar target/*.war
     
     
-### To deploy application to Elastic Beanstock
+### To deploy application to Elastic Beanstalk
 
 It is recommended to create new profile (e.g. admin)for aws-key and aws-secret in ~/.aws/credentials
 
