@@ -15,7 +15,7 @@ public class ServletContextInitializer implements ServletContextListener {
             storage = new Storage();
             servletContextEvent.getServletContext().setAttribute("storage", storage);
         } catch (Exception e) {
-            servletContextEvent.getServletContext().log("ERROR: " + e.getCause().toString());
+            e.printStackTrace();
         }
     }
 
@@ -24,7 +24,7 @@ public class ServletContextInitializer implements ServletContextListener {
         try {
             storage.close();
         } catch (IOException e) {
-            servletContextEvent.getServletContext().log("ERROR: " + e.getCause().toString());
+            e.printStackTrace();
         }
     }
 }

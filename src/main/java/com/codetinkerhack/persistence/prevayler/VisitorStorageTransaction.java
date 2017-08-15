@@ -12,7 +12,7 @@ public class VisitorStorageTransaction implements Transaction<VisitorKeeper> {
     private String _ipToKeep;
 
     public VisitorStorageTransaction() {
-    } //Necessary for Skaringa XML serialization
+    }
 
     public VisitorStorageTransaction(String ipToKeep) {
         _ipToKeep = ipToKeep;

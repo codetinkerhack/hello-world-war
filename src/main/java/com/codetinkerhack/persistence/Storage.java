@@ -16,7 +16,7 @@ public class Storage {
     private final Prevayler<VisitorKeeper> prevayler;
 
     public Storage() throws Exception {
-        this.prevayler = PrevaylerFactory.createPrevayler(new VisitorKeeper(), "visitors");
+        this.prevayler = PrevaylerFactory.createPrevayler(new VisitorKeeper(), "/tmp/visitors");
     }
 
     public void store(String ip) {

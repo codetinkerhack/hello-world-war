@@ -19,8 +19,4 @@ public class VisitorKeeper implements java.io.Serializable {
         return ipList;
     }
 
-    public String lastIp() {
-        return ipList.isEmpty() ? "" : ipList.get(ipList.size() - 1);
-    }
-
 }

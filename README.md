@@ -1,7 +1,7 @@
-Hello World! Deployed in Elastic Beanstalk 
+Company News (Hello World web app) deployed in Elastic Beanstalk 
 ===============
 
-This is hypotetical exercise and applicatio developed here does not serve any major purpose.
+This is hypothetical exercise and application developed here does not serve any major purpose.
 As foundation for this project simple Java webapp was used. Application stores visitors IPs in a file based database.
 This application includes configuration necessary to be deployed and run on Elastic Beanstalk AWS service. Elastic Beanstalk is a managed service that abstracts underlying AWS implementation / configuration complexities 
 and provides a quick start for your projects. This particular application profile appears to be suitable for Elastic Beanstalk - WAR packaged application running in web container is one of the standard Elastic Beanstalk deployment patterns.
@@ -22,8 +22,9 @@ in console:
     
 and then
 
-    java -jar target/dependency/jetty-runner.jar target/*.war
-    
+    mvn tomcat7:run
+
+navigate to url: http://localhost:9090
     
 ### To deploy application to Elastic Beanstalk
 

@@ -19,13 +19,15 @@
             ServletContext sc = request.getSession().getServletContext();
             Storage storage =  (Storage) sc.getAttribute("storage");
 
-            for(String ip : storage.getLast20Visitors()) {
-                %>
-                <%= ip %> <br>
-                <%
-            }
+            if (storage != null) {
+                for(String ip : storage.getLast20Visitors()) {
+        %>
+                    <%= ip %> <br>
+        <%
+                }
 
-            storage.store(request.getRemoteAddr());
+                storage.store(request.getRemoteAddr());
+            }
 	    %>
 	</p>
 
