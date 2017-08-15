@@ -66,5 +66,5 @@ and/or by modifying .elasticbeanstalk/config.global.yml files
 
 To update application in respective env:
 
-    git checkout env
+    git checkout [env-branch]
     eb deploy
