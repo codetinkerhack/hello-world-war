@@ -1,0 +1,26 @@
+branch-defaults:
+  master:
+    environment: prod
+    group_suffix: null
+  develop:
+    environment: develop
+    group_suffix: null
+  training:
+    environment: training
+    group_suffix: null
+deploy:
+  artifact: target/hello-world-war-1.0.0.war
+global:
+  application_name: company-news
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Tomcat 8 Java 8
+  default_region: ap-southeast-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: git
+  workspace_type: Application
