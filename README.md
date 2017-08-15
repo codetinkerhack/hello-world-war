@@ -1,29 +1,23 @@
 Hello World! (WAR-style) Deployed in Elastic Beanstalk 
 ===============
 
-This is the simplest possible Java webapp for testing servlet container deployments.  
-It should work on any container and requires no other dependencies or configuration.
+As foundation for this project very simple Java webapp for testing servlet container deployments was used.
+This application uses Elastic Beanstalk service. Elastic Beanstalk is a managed service that abstracts many complexities 
+and provides a quick start for your dev and prod environments. 
+When application use patterns are identified deployment configuration can be customised to run in a custom built environment. 
 
 ### Prerequisites
 
-You will require an AWS account. Free tier will default VPC work for this example. 
-However if you have proper VPC configured - this example can be further customised to make use of it.
-Right now this deployment will make use of default VPC.
-
-This deployment uses Elastic Beanstalk managed service to deploy the application.
-
-You will need Elstic Beanstalk CLI client installed in order to use Elastic Beanstalk service.
-
-Below are instructions outlining how to install the client:
-
-http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+* AWS account. Free tier will default VPC work for this example. 
+* Elastic Beanstalk CLI client installed in order to use Elastic Beanstalk service. Below are instructions outlining how to install the client: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+* IAM user that has AWSElasticBeanstalkFullAccess managed policy assigned in order to execute eb cli commands. (as per http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html)
 
 
-### To run application from CLI 
+### To run application in local dev environment 
 
-do:
+in console:
 
-    mvn package
+    mvn clean package
     
 and then
 
@@ -32,7 +26,7 @@ and then
     
 ### To deploy application to Elastic Beanstalk
 
-First, create ~/.aws/credentials with a profile for your app:
+It is recommended to create ~/.aws/credentials with a profile for your app:
 
     [my-profile]
     aws_access_key_id=YOUR_ACCESS_KEY_ID
@@ -55,9 +49,9 @@ Similarly training environment can be created (same deployment configuration as 
     eb create training -s
 
 Below command will deploy application to a Prod env
-Production environment has a load balancer and autoscaling group. Most of the settings are default but can be changed to
-specify number of instances to support HA configuration, application update policy, sns topic to receive alarms, etc.
-This can be achieved by providing extra configuraiotn in .ebextensions (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-containers.html) folder 
+Production environment has a load balancer and defines an autoscaling group. Most of the settings are default but can be customized to
+suit production environment requirements. Further customisations are possible such as: custom VPC, modify number of instances to support HA configuration, application update policy, sns topic to receive alarms, custom monitoring, etc.
+Customizations can be achieved by providing extra configuration in .ebextensions (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-containers.html) folder 
 and/or by modifying .elasticbeanstalk/config.global.yml files
     
     eb create prod
@@ -68,3 +62,20 @@ To update application in respective env:
 
     git checkout [env-branch]
     eb deploy
+    
+### Limitations to consider
+
+Application uses Prevayler to store data on filesystem. This limits scalability (as state stored locally on EC2 instance filesystem). 
+Proper RDS storage as Dynamo or RDS as Postgress/MySQL can be used to store dynamic content.
+
+
+### Following work
+
+This application appears to be of mostly read / less write type (as name suggests it is a CMS type application). 
+Thus it is good candidate for caching. 
+
+Following can be done to improve performance when traffic to application grows: 
+
+* Static file can be separated and hosted in S3 bucket.
+* Use CloudFront to cache static content and potentially some non-frequently changing dynamic pages via HTTP response headers.
+
