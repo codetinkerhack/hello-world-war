@@ -1,13 +1,10 @@
 branch-defaults:
   master:
     environment: prod
-    group_suffix: null
   develop:
     environment: develop
-    group_suffix: null
   training:
     environment: training
-    group_suffix: null
 deploy:
   artifact: target/hello-world-war-1.0.0.war
 global:
