@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "AWS CloudFormation Sample Template S3_Website: Sample template showing how to create a website with a custom DNS name, hosted on Amazon S3",
+  "Description" : "AWS CloudFormation Template S3_Website creates a static website hosted on Amazon S3",
   "Parameters" : {
     "S3BucketName": {
       "Description": "S3 Bucket Name",
