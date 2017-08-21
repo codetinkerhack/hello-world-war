@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - vars.yml
+  environment:
+    AWS_REGION: "{{ region }}"
+
+  tasks:
+
+    - name: launch cloudformation
+      cloudformation:
+        stack_name: "static-web-{{ s3_static_site_bucket }}-cdn"
+        state: "present"
+        disable_rollback: false
+        template: "cicd/cloudformation/S3_Website_With_CloudFront_Distribution.template"
+        template_parameters:
+          HostedZone: "{{ hosted_zone }}"
+          S3BucketName: "{{ s3_static_site_bucket }}"

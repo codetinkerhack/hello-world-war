@@ -1,0 +1,63 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "AWS CloudFormation Sample Template S3_Website: Sample template showing how to create a website with a custom DNS name, hosted on Amazon S3",
+  "Parameters" : {
+    "S3BucketName": {
+      "Description": "S3 Bucket Name",
+      "Type": "String"
+    }
+  },
+
+  "Resources" : {
+    "S3BucketForWebsiteContent": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName" : {"Ref": "S3BucketName"},
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html",
+          "ErrorDocument": "error.html"
+        }
+      }
+    },
+    "BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3BucketForWebsiteContent"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3BucketForWebsiteContent"
+                    },
+                    "/*"
+                  ]
+                ]
+              },
+              "Principal": "*"
+            }
+          ]
+        }
+      }
+    }
+  },
+
+  "Outputs" : {
+    "BucketName" : {
+      "Value" : { "Ref" : "S3BucketForWebsiteContent" },
+      "Description" : "Name of S3 bucket to hold website content"
+    }
+  }
+}

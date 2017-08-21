@@ -1,0 +1,8 @@
+---
+app_name: company-news
+region: ap-southeast-2
+s3_static_site_bucket: "hello-world-{{ env_name }}"
+RESOURCES_URL: "http://{{ s3_static_site_bucket }}.s3-website-{{ region }}.amazonaws.com"
+
+# Required when creating CDN fronted S3
+hosted_zone: "example.com"

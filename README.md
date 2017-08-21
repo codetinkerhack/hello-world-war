@@ -13,12 +13,28 @@ Although Elastic Beanstalk deployment process is simple (abstracts complexities 
 * Elastic Beanstalk CLI client installed in order to use Elastic Beanstalk service. Below are instructions outlining how to install the client: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 * IAM user that has AWSElasticBeanstalkFullAccess managed policy assigned in order to execute eb cli commands. (as per http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html)
 
+### Static web content
+
+Designers / Frontend developers should be able to checkout project and commit static web content on develop branch.
+
+Static web content is located in
+
+    cd src/webapp/static
+        
+    static
+    - css
+    - images
+
 
 ### To run application in local dev environment 
 
+
 in console:
 
+    export RESOURCES_URL=http://localhost:9090
+    
     mvn clean package
+    
     
 and then
 
@@ -38,6 +54,15 @@ Run on CLI:
 
     export AWS_EB_PROFILE=my-profile
 
+To create static website hosted on S3 run
+
+    cd cicd/ansible
+    ansible-playbook create_static_site.yml
+    
+To deploy content to static website run
+    
+    cd cicd/ansible
+    ansible-playbook deploy_static_site.yml 
 
 Below command will deploy application to a development (named develop) environment
 Development environment is extremely simple consisting only of single EC2 instance with Elastic IP.
@@ -53,6 +78,7 @@ Similarly to develop environment, training environment can be created.
 Below command will deploy application to a Prod env
 Production environment has a load balancer and defines an autoscaling group, most of other settings were left default (but as discussed earlier customisable).
     
+    git checkout master
     eb create prod
 
 To check status and url for application
@@ -89,7 +115,7 @@ To address this proper RDS storage as Dynamo or RDS as Postgress/MySQL can be us
 
 1. As mentioned before user proper RDS.
 
-2. This application appears to be of mostly read / less write type (as name suggests it is a CMS type application). 
+2. DONE. This application appears to be of mostly read / less write type (as name suggests it is a CMS type application). 
 Thus it is good candidate for caching. 
 
     Following can be done to improve performance when traffic to application grows: 

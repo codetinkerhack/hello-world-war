@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - vars.yml
+  environment:
+    AWS_REGION: "{{ region }}"
+
+# Create & Deploy Static site application
+- include: create_static_site.yml
+- include: deploy_static_site.yml
+
+  tasks:
+
+  - name: Create Elastic Beanstalk application
+    shell: "eb init"
+
+  - name: Create Elastic Beanstalk environment
+    shell: "eb create {{ env_name }} --cfg {{ env_name }}"
+
+  - name: Deploy Elastic Beanstalk application
+    shell: "eb deploy"
+
+
