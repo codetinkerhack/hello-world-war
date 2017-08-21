@@ -12,10 +12,11 @@ Although Elastic Beanstalk deployment process is simple (abstracts complexities 
 * AWS account. Free tier will default VPC work for this example. 
 * Elastic Beanstalk CLI client installed in order to use Elastic Beanstalk service. Below are instructions outlining how to install the client: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 * IAM user that has AWSElasticBeanstalkFullAccess managed policy assigned in order to execute eb cli commands. (as per http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts-roles.html)
+* Project uses ansible for orchestration
 
 ### Static web content
 
-Designers / Frontend developers should be able to checkout project and commit static web content on develop branch.
+Designers / Frontend developers should be able to checkout project and deploy/commit static web content.
 
 Static web content is located in
 
@@ -71,13 +72,13 @@ To re-deploy static website and web application:
 
 ### Customize env Elastic Beanstalk configuration
 
-Configuration avaialble in:
+Elastic Beanstalk configuration for prod/develop/training environments is avaialble in:
 
-    .elasticbeanstalk/saved_config/[env].cfg
+    .elasticbeanstalk/saved_config/[env].cfg.yml
 
-Development environment is extremely simple consisting only of single EC2 instance with Elastic IP.
+Development and Training environments are extremely simple consisting only of single EC2 instance with Elastic IP.
 
-Production environment has a load balancer and defines an autoscaling group, most of other settings were left default (but as discussed earlier customisable).
+Production environment has a load balancer and defines an autoscaling group, most of other settings were left default (but as discussed earlier customisable via prod.cfg.yml EB config file).
 
 ### To check status and url for application
     
