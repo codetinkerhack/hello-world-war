@@ -1,0 +1,10 @@
+branch-defaults:
+  develop:
+    environment: develop
+    group_suffix: null
+  master:
+    environment: prod
+  training:
+    environment: training
+global:
+  profile: eb-cli

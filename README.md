@@ -53,35 +53,33 @@ It is recommended to create ~/.aws/credentials with a profile for your app:
 Run on CLI:
 
     export AWS_EB_PROFILE=my-profile
-
-To create static website hosted on S3 run
-
-    cd cicd/ansible
-    ansible-playbook create_static_site.yml
     
-To deploy content to static website run
+Update variables:
     
-    cd cicd/ansible
-    ansible-playbook deploy_static_site.yml 
+    cicd/ansible/vars.yml
 
-Below command will deploy application to a development (named develop) environment
+To create environment (env = prod/develop/training) and deploy static and web application:
+
+    ansible-playbook -e env_name=[env] cicd/create_all.yml
+
+### To update application in environments
+
+To re-deploy static website and web application:
+
+    ansible-playbook -e env_name=[env] cicd/deploy_all.yml
+    
+
+### Customize env Elastic Beanstalk configuration
+
+Configuration avaialble in:
+
+    .elasticbeanstalk/saved_config/[env].cfg
+
 Development environment is extremely simple consisting only of single EC2 instance with Elastic IP.
 
-    git checkout develop
-    eb create develop -s
-
-Similarly to develop environment, training environment can be created.
-
-    git checkout training
-    eb create training -s
-
-Below command will deploy application to a Prod env
 Production environment has a load balancer and defines an autoscaling group, most of other settings were left default (but as discussed earlier customisable).
-    
-    git checkout master
-    eb create prod
 
-To check status and url for application
+### To check status and url for application
     
     eb status
     
@@ -99,12 +97,6 @@ Sample output
        Status: Ready
        Health: Green   
        
-### To update application in environments
-
-To update application in respective env:
-
-    git checkout [env-branch]
-    eb deploy
     
 ### Limitations to consider
 

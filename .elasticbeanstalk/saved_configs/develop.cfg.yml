@@ -1,0 +1,23 @@
+EnvironmentConfigurationMetadata:
+  DateCreated: '1503236291000'
+  DateModified: '1503236291000'
+Platform:
+  PlatformArn: arn:aws:elasticbeanstalk:ap-southeast-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.6.3
+OptionSettings:
+  aws:elasticbeanstalk:command:
+    BatchSize: '30'
+    BatchSizeType: Percentage
+  aws:elasticbeanstalk:application:environment:
+    RESOURCES_URL: http://hello-world-develop.s3-website-ap-southeast-2.amazonaws.com
+  aws:elasticbeanstalk:environment:
+    EnvironmentType: SingleInstance
+    ServiceRole: aws-elasticbeanstalk-service-role
+  aws:elasticbeanstalk:healthreporting:system:
+    SystemType: enhanced
+  aws:autoscaling:launchconfiguration:
+    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
+    InstanceType: t2.micro
+EnvironmentTier:
+  Type: Standard
+  Name: WebServer
+AWSConfigurationTemplateVersion: 1.1.0.0

@@ -6,14 +6,20 @@
     - vars.yml
   environment:
     AWS_REGION: "{{ region }}"
+    AWS_EB_PROFILE: "{{ aws_profile }}"
 
   tasks:
 
-    - name: launch cloudformation
+    - name: Create Static site
       cloudformation:
         stack_name: "static-web-{{ s3_static_site_bucket }}"
         state: "present"
         disable_rollback: false
-        template: "cicd/cloudformation/S3_Website.template"
+        template: "../cloudformation/S3_Website.template"
         template_parameters:
           S3BucketName: "{{ s3_static_site_bucket }}"
+
+    - name: Deploy Static site
+      shell: "aws s3 cp src/main/webapp/static s3://{{ s3_static_site_bucket }}/static --recursive"
+      args:
+        chdir: ../../

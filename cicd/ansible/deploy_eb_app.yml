@@ -9,7 +9,10 @@
     AWS_EB_PROFILE: "{{ aws_profile }}"
 
   tasks:
-    - name: Deploy Static site
-      shell: "aws s3 cp src/main/webapp/static s3://{{ s3_static_site_bucket }}/static --recursive"
-      args:
-        chdir: ../../
+
+  - name: Deploy Elastic Beanstalk application
+    shell: "eb deploy {{ env_name }}"
+    args:
+      chdir: ../../
+
+

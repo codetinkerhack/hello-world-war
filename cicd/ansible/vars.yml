@@ -1,5 +1,6 @@
 ---
 app_name: company-news
+aws_profile: devops
 region: ap-southeast-2
 s3_static_site_bucket: "hello-world-{{ env_name }}"
 RESOURCES_URL: "http://{{ s3_static_site_bucket }}.s3-website-{{ region }}.amazonaws.com"

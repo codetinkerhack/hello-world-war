@@ -6,15 +6,21 @@
     - vars.yml
   environment:
     AWS_REGION: "{{ region }}"
+    AWS_EB_PROFILE: "{{ aws_profile }}"
 
   tasks:
 
-    - name: launch cloudformation
+    - name: Create Static Site with CDN
       cloudformation:
         stack_name: "static-web-{{ s3_static_site_bucket }}-cdn"
         state: "present"
         disable_rollback: false
-        template: "cicd/cloudformation/S3_Website_With_CloudFront_Distribution.template"
+        template: "../cloudformation/S3_Website_With_CloudFront_Distribution.template"
         template_parameters:
           HostedZone: "{{ hosted_zone }}"
           S3BucketName: "{{ s3_static_site_bucket }}"
+
+    - name: Deploy Static site
+      shell: "aws s3 cp src/main/webapp/static s3://{{ s3_static_site_bucket }}/static --recursive"
+      args:
+        chdir: ../../

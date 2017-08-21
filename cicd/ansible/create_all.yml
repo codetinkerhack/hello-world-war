@@ -8,8 +8,7 @@
     AWS_REGION: "{{ region }}"
     AWS_EB_PROFILE: "{{ aws_profile }}"
 
-  tasks:
-    - name: Deploy Static site
-      shell: "aws s3 cp src/main/webapp/static s3://{{ s3_static_site_bucket }}/static --recursive"
-      args:
-        chdir: ../../
+
+# Create & Deploy Static site and application
+- include: create_static_site.yml
+- include: create_eb_env.yml

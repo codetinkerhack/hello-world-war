@@ -6,20 +6,27 @@
     - vars.yml
   environment:
     AWS_REGION: "{{ region }}"
+    AWS_EB_PROFILE: "{{ aws_profile }}"
 
-# Create & Deploy Static site application
-- include: create_static_site.yml
-- include: deploy_static_site.yml
 
   tasks:
 
   - name: Create Elastic Beanstalk application
-    shell: "eb init"
+    shell: "eb init -y"
+    args:
+        chdir: ../../
 
   - name: Create Elastic Beanstalk environment
     shell: "eb create {{ env_name }} --cfg {{ env_name }}"
+    args:
+        chdir: ../../
 
-  - name: Deploy Elastic Beanstalk application
-    shell: "eb deploy"
+  - debug: var=output.stdout_lines
+
+  - name: Deploy Elastic Beanstalk application to environment
+    shell: "eb deploy {{ env_name }}"
+    args:
+        chdir: ../../
+
 
 
