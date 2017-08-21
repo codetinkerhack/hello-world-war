@@ -55,9 +55,11 @@ Run on CLI:
 
     export AWS_EB_PROFILE=my-profile
     
-Update variables:
+Update variables. At least change the aws_profile=my-profile that was created earlier. See customize env Elastic Beanstalk configuration if you would like to add more deployment customisations for EB environments.
     
     cicd/ansible/vars.yml
+
+
 
 To create environment (env = prod/develop/training) and deploy static and web application:
 
@@ -75,6 +77,8 @@ To re-deploy static website and web application:
 Elastic Beanstalk configuration for prod/develop/training environments is avaialble in:
 
     .elasticbeanstalk/saved_config/[env].cfg.yml
+    
+More docu available at: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-configuration-savedconfig.html
 
 Development and Training environments are extremely simple consisting only of single EC2 instance with Elastic IP.
 
