@@ -1,16 +1,16 @@
 EnvironmentConfigurationMetadata:
-  DateCreated: '1502797844000'
-  DateModified: '1502797844000'
+  DateCreated: '1503329068000'
+  DateModified: '1503329068000'
 Platform:
   PlatformArn: arn:aws:elasticbeanstalk:ap-southeast-2::platform/Tomcat 8 with Java 8 running on 64bit Amazon Linux/2.6.3
 OptionSettings:
   aws:elasticbeanstalk:command:
     BatchSize: '30'
     BatchSizeType: Percentage
-  aws:elasticbeanstalk:application:environment:
-    RESOURCES_URL: http://hello-world-prod.s3-website-ap-southeast-2.amazonaws.com
   aws:elb:policies:
     ConnectionDrainingEnabled: true
+  aws:elasticbeanstalk:application:environment:
+    RESOURCES_URL: http://hello-world-prod.s3-website-ap-southeast-2.amazonaws.com
   aws:elb:loadbalancer:
     CrossZone: true
   aws:elasticbeanstalk:environment:
@@ -19,8 +19,11 @@ OptionSettings:
     SystemType: enhanced
   aws:autoscaling:launchconfiguration:
     IamInstanceProfile: aws-elasticbeanstalk-ec2-role
-    EC2KeyName: null
     InstanceType: t2.micro
+    EC2KeyName: null
+  aws:autoscaling:asg:
+    MinSize: '2'
+    Availability Zones: Any 2
   aws:autoscaling:updatepolicy:rollingupdate:
     RollingUpdateType: Health
     RollingUpdateEnabled: true
